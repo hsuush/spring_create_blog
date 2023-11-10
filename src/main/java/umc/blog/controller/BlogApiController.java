@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import umc.blog.domain.Article;
 import umc.blog.dto.AddArticleRequest;
 import umc.blog.dto.ArticleResponse;
+import umc.blog.dto.UpdateArticleRequest;
 import umc.blog.service.BlogService;
 
 import java.util.List;
@@ -45,5 +46,12 @@ public class BlogApiController {
                 .body(new ArticleResponse(article));
     }
 
+    @PutMapping("/api/articles/id")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id, @RequestBody UpdateArticleRequest request){
+        Article updatedArticle = blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updatedArticle);
+    }
 
 }

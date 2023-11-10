@@ -1,9 +1,11 @@
 package umc.blog.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import umc.blog.domain.Article;
 import umc.blog.dto.AddArticleRequest;
+import umc.blog.dto.UpdateArticleRequest;
 import umc.blog.repository.BlogRepository;
 
 import java.util.List;
@@ -27,4 +29,14 @@ public class BlogService {
                 .orElseThrow(()->new IllegalArgumentException("not found: "+ id));
     }
 
+    @Transactional
+    public Article update(long id, UpdateArticleRequest request){
+        Article article = blogRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("not found: "+id));
+
+        article.update(request.getTitle(), request.getContent());
+
+        return article;
+
+    }
 }
