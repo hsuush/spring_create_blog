@@ -6,6 +6,8 @@ import umc.blog.domain.Article;
 import umc.blog.dto.AddArticleRequest;
 import umc.blog.repository.BlogRepository;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class BlogService {
@@ -14,5 +16,9 @@ public class BlogService {
     //블로그 그 추가 메서드 (데이터베이스에 Article 엔티티 저장)
     public Article save(AddArticleRequest request){
         return blogRepository.save(request.toEntity());
+    }
+
+    public List<Article> findAll(){
+        return blogRepository.findAll();
     }
 }
