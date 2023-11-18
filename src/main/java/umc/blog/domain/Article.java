@@ -1,13 +1,18 @@
 package umc.blog.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +25,14 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @CreatedDate
+    @Column(name = "createdAt")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @Builder
     public Article(String title, String content){
         this.title = title;
@@ -30,4 +43,6 @@ public class Article {
         this.title = title;
         this.content = content;
     }
+
+
 }
